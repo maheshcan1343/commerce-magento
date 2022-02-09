@@ -1,0 +1,22 @@
+{
+  "../components/common/Layout/Layout.tsx -> @components/auth/ForgotPassword": {
+    "id": "./components/auth/ForgotPassword.tsx",
+    "files": [
+      "static/chunks/components_auth_ForgotPassword_tsx.js"
+    ]
+  },
+  "../components/common/Layout/Layout.tsx -> @components/auth/SignUpView": {
+    "id": "./components/auth/SignUpView.tsx",
+    "files": [
+      "static/chunks/components_auth_SignUpView_tsx.js"
+    ]
+  },
+  "../components/common/Layout/Layout.tsx -> @components/common/FeatureBar": {
+    "id": "./components/common/FeatureBar/index.ts",
+    "files": []
+  },
+  "../components/common/Layout/Layout.tsx -> @components/ui/Modal": {
+    "id": "./components/ui/Modal/index.ts",
+    "files": []
+  }
+}
