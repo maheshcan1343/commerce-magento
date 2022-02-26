@@ -10,6 +10,8 @@ import getSlug from '@lib/get-slug'
 import { missingLocaleInPages } from '@lib/usage-warns'
 import type { Page } from '@commerce/types/page'
 import { useRouter } from 'next/router'
+//import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
+import Search from '@components/search'
 
 export async function getStaticProps({
   preview,
@@ -24,13 +26,15 @@ export async function getStaticProps({
   const { categories } = await siteInfoPromise
   const path = params?.pages.join('/')
   const slug = locale ? `${locale}/${path}` : path
-  const pageItem = pages.find((p: Page) =>
+
+  /*const pageItem = pages.map((p: Page) =>
     p.url ? getSlug(p.url) === slug : false
-  )
+  )*/
+  const pageItem = true
   const data =
     pageItem &&
     (await commerce.getPage({
-      variables: { id: pageItem.id! },
+      variables: { id: '7890' },
       config,
       preview,
     }))
@@ -55,11 +59,7 @@ export async function getStaticPaths({ locales }: GetStaticPathsContext) {
   const paths = pages
     .map((page) => page.url)
     .filter((url) => {
-      if (!url || !locales) return url
-      // If there are locales, only include the pages that include one of the available locales
-      if (locales.includes(getSlug(url).split('/')[0])) return url
-
-      invalidPaths.push(url)
+      return url
     })
   log()
 
@@ -71,13 +71,17 @@ export async function getStaticPaths({ locales }: GetStaticPathsContext) {
 
 export default function Pages({
   page,
+  categories,
+  pages
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
 
   return router.isFallback ? (
     <h1>Loading...</h1> // TODO (BC) Add Skeleton Views
   ) : (
-    <div className="max-w-2xl mx-8 sm:mx-auto py-20">
+    <div>
+      <p>weclome by new</p>
+      {<Search categories={categories} pages={pages} />}
       {page?.body && <Text html={page.body} />}
     </div>
   )

@@ -123,6 +123,8 @@ const Layout: FC<Props> = ({
       include_in_menu: megamenu.include_in_menu,
     }))
 
+    
+
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>

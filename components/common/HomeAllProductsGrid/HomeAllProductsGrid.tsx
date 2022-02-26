@@ -12,11 +12,38 @@ interface Props {
   products?: Product[]
 }
 
+const megaMenuCollections = [
+  'special-offers',
+  'garden-outdoor-furniture',
+  'bbqs-fire-pits',
+  'garden-sheds',
+  'lawnmowers',
+  'ride-on-mowers',
+  'strimmers-and-brushcutters',
+  'blowers-chainsaws',
+  'cultivators',
+  'shredders-for-sale',
+  'accessories',
+  'scarifiers',
+]
+
 const HomeAllProductsGrid: FC<Props> = ({
   categories,
   brands,
   products = [],
 }) => {
+  const navBarlinks = categories.children
+    .filter(
+      (megamenu) =>
+        megamenu.include_in_menu === 1 &&
+        megaMenuCollections.indexOf(megamenu.url_path) > -1
+    )
+    .map((megamenu) => ({
+      id: megamenu.id,
+      label: megamenu.name,
+      href: `/${megamenu.url_path}`,
+      include_in_menu: megamenu.include_in_menu,
+    }))
   return (
     <div className={s.root}>
       <div className={s.asideWrapper}>
@@ -27,15 +54,15 @@ const HomeAllProductsGrid: FC<Props> = ({
                 <a>All Categories</a>
               </Link>
             </li>
-            {categories.map((cat: any) => (
+            {navBarlinks.map((cat: any) => (
               <li key={cat.path} className="py-1 text-accent-8 text-base">
-                <Link href={getCategoryPath(cat.path)}>
-                  <a>{cat.name}</a>
+                <Link href={cat.href}>
+                  <a>{cat.label}</a>
                 </Link>
               </li>
             ))}
           </ul>
-          <ul className="">
+          {/* <ul className="">
             <li className="py-1 text-base font-bold tracking-wide">
               <Link href={getDesignerPath('')}>
                 <a>All Designers</a>
@@ -48,7 +75,7 @@ const HomeAllProductsGrid: FC<Props> = ({
                 </Link>
               </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
       </div>
       <div className="flex-1">

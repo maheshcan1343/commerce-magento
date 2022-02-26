@@ -2,7 +2,7 @@ import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
 import { Grid, Marquee, Hero } from '@components/ui'
-// import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
+import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
 export async function getStaticProps({
@@ -19,11 +19,11 @@ export async function getStaticProps({
   const siteInfoPromise = commerce.getSiteInfo({ config, preview })
   const { categories } = await siteInfoPromise
   const { products: homepageProducts } = await homepageProductsPromise
-  
+
   return {
     props: {
       homepageProducts,
-      categories
+      categories,
     },
     revalidate: 60,
   }
@@ -31,6 +31,7 @@ export async function getStaticProps({
 
 export default function Home({
   homepageProducts,
+  categories
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>

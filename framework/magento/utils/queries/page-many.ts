@@ -1,11 +1,26 @@
 export const PageMany = /* GraphQL */ `
-  query PageMany($first: Int = 100) {
-    pages(first: $first) {
-      edges {
-        node {
+  query PageMany {
+    categoryList(filters: { ids: { eq: "4328" } }) {
+      products {
+        items {
           id
-          title
-          slug
+          name
+          sku
+          url_key
+          review_count
+          rating_summary
+          image {
+            url
+          }
+          price {
+            regularPrice {
+              amount {
+                currency
+                value
+              }
+            }
+          }
+          special_price
         }
       }
     }
