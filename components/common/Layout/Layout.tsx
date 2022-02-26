@@ -76,6 +76,11 @@ const ModalUI: FC = () => {
   ) : null
 }
 
+const megaMenuCollections = [
+  'special-offers','garden-outdoor-furniture','bbqs-fire-pits','garden-sheds','lawnmowers','ride-on-mowers',
+  'strimmers-and-brushcutters','blowers-chainsaws','cultivators','shredders-for-sale','accessories','scarifiers'
+]
+
 const SidebarView: FC<{
   sidebarView: string
   closeSidebar(): any
@@ -110,11 +115,11 @@ const Layout: FC<Props> = ({
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US' } = useRouter()
   const navBarlinks = categories.children
-    .filter((megamenu) => megamenu.include_in_menu === 1)
+    .filter((megamenu) => megamenu.include_in_menu === 1 && megaMenuCollections.indexOf(megamenu.url_path) > -1 )
     .map((megamenu) => ({
       id: megamenu.id,
       label: megamenu.name,
-      href: `/search/${megamenu.url_path}`,
+      href: `/${megamenu.url_path}`,
       include_in_menu: megamenu.include_in_menu,
     }))
 
