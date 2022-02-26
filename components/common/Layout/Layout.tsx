@@ -109,10 +109,14 @@ const Layout: FC<Props> = ({
 }) => {
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US' } = useRouter()
-  const navBarlinks = categories.slice(0, 2).map((c) => ({
-    label: c.name,
-    href: `/search/${c.slug}`,
-  }))
+  const navBarlinks = categories.children
+    .filter((megamenu) => megamenu.include_in_menu === 1)
+    .map((megamenu) => ({
+      id: megamenu.id,
+      label: megamenu.name,
+      href: `/search/${megamenu.url_path}`,
+      include_in_menu: megamenu.include_in_menu,
+    }))
 
   return (
     <CommerceProvider locale={locale}>

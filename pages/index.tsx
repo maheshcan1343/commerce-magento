@@ -19,10 +19,11 @@ export async function getStaticProps({
   const siteInfoPromise = commerce.getSiteInfo({ config, preview })
   const { categories } = await siteInfoPromise
   const { products: homepageProducts } = await homepageProductsPromise
-  console.log("categories ==>",categories);
+  
   return {
     props: {
       homepageProducts,
+      categories
     },
     revalidate: 60,
   }
