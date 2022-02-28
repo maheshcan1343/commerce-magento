@@ -20,9 +20,9 @@ export async function getStaticProps({
   locales,
 }: GetStaticPropsContext<{ pages: string[] }>) {
   const config = { locale, locales }
-  const pagesPromise = commerce.getAllPages({ config, preview })
+  // const pagesPromise = commerce.getAllPages({ config, preview })
   const siteInfoPromise = commerce.getSiteInfo({ config, preview })
-  const { pages } = await pagesPromise
+  //const { pages } = await pagesPromise
   const { categories } = await siteInfoPromise
   const path = params?.pages.join('/')
   const slug = locale ? `${locale}/${path}` : path
@@ -30,6 +30,13 @@ export async function getStaticProps({
   /*const pageItem = pages.map((p: Page) =>
     p.url ? getSlug(p.url) === slug : false
   )*/
+
+  const productPromise = commerce.getCategoryBySlug({
+    variables: { slug: path },
+    config,
+    preview,
+  })
+  const { pages } = await productPromise
   const pageItem = true
   const data =
     pageItem &&
@@ -72,7 +79,7 @@ export async function getStaticPaths({ locales }: GetStaticPathsContext) {
 export default function Pages({
   page,
   categories,
-  pages
+  pages,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
 
@@ -80,7 +87,6 @@ export default function Pages({
     <h1>Loading...</h1> // TODO (BC) Add Skeleton Views
   ) : (
     <div>
-      <p>weclome by new</p>
       {<Search categories={categories} pages={pages} />}
       {page?.body && <Text html={page.body} />}
     </div>

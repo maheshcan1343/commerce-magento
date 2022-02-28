@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 
 import { Layout } from '@components/common'
-import  CustomProductCard from '@components/product/CustomProductCard'
+import CustomProductCard from '@components/product/CustomProductCard'
 import type { Product } from '@commerce/types/product'
 import { Container, Skeleton } from '@components/ui'
 
@@ -139,7 +139,8 @@ export default function Search({ categories, brands, pages }: SearchPropsType) {
                 </Skeleton>
               ))}
             </div>
-          )}{' '}
+          )}
+          {'Currently the category have no products. '}
         </div>
       </div>
     </Container>
